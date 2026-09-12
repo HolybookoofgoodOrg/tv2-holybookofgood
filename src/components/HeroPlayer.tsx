@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { VideoItem } from "@/data/mediaArchive";
+import { VideoItem, ensureHttps } from "@/data/mediaArchive";
 import {
   Play,
   Pause,
@@ -128,7 +128,7 @@ export const HeroPlayer: React.FC<HeroPlayerProps> = ({
         >
           <video
             ref={videoRef}
-            src={currentVideo.videoUrl}
+            src={ensureHttps(currentVideo.videoUrl)}
             className="w-full h-full object-contain cursor-pointer"
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleTimeUpdate}

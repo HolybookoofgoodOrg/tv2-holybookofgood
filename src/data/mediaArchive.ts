@@ -18,7 +18,15 @@ export interface ShortItem {
   tag?: string;
 }
 
-export const R2_BASE_URL = "https://pub-4640fb9bc41e4e2ba4226985ab47e0b0.r2.dev/";
+/**
+ * Ensures all media and video URLs are securely delivered over HTTPS protocol
+ */
+export const ensureHttps = (url: string): string => {
+  if (!url) return url;
+  return url.replace(/^http:\/\//i, "https://");
+};
+
+export const R2_BASE_URL = ensureHttps("https://pub-4640fb9bc41e4e2ba4226985ab47e0b0.r2.dev/");
 
 export const CATEGORIES = [
   "All",
@@ -207,7 +215,10 @@ export const VIDEO_ARSIFI: VideoItem[] = [
     videoUrl: "https://pub-4640fb9bc41e4e2ba4226985ab47e0b0.r2.dev/About_Holybookofgood.Org_Philosophy.mp4",
     views: "38.7K",
   },
-];
+].map((video) => ({
+  ...video,
+  videoUrl: ensureHttps(video.videoUrl),
+}));
 
 export const SHORTS_RAW_DATA = [
   {
@@ -258,6 +269,6 @@ export const SHORTS_ARSIFI: ShortItem[] = SHORTS_RAW_DATA.map((item) => ({
   id: item.id,
   title: item.title,
   file: item.file,
-  url: `${R2_BASE_URL}${item.file}.mp4`,
+  url: ensureHttps(`${R2_BASE_URL}${item.file}.mp4`),
   tag: item.tag,
 }));

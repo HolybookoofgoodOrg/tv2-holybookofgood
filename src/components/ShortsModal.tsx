@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { SHORTS_ARSIFI, ShortItem } from "@/data/mediaArchive";
+import { SHORTS_ARSIFI, ShortItem, ensureHttps } from "@/data/mediaArchive";
 import { X, ChevronLeft, ChevronRight, Flame, Sparkles } from "lucide-react";
 
 interface ShortsModalProps {
@@ -17,7 +17,7 @@ export const ShortsModal: React.FC<ShortsModalProps> = ({ isOpen, onClose }) => 
 
   useEffect(() => {
     if (isOpen && videoRef.current) {
-      videoRef.current.src = currentShort.url;
+      videoRef.current.src = ensureHttps(currentShort.url);
       videoRef.current.load();
       videoRef.current.play().catch(() => {
         // Autoplay may need user gesture
