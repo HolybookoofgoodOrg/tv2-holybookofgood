@@ -38,6 +38,7 @@ export const HeroPlayer: React.FC<HeroPlayerProps> = ({
   const [duration, setDuration] = useState("00:00");
   const [copied, setCopied] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
 
   const formatSeconds = (sec: number) => {
     if (isNaN(sec) || sec <= 0) return "00:00";
@@ -47,6 +48,7 @@ export const HeroPlayer: React.FC<HeroPlayerProps> = ({
   };
 
   useEffect(() => {
+    setIsPortrait(false); // Reset orientation until new video metadata loads
     if (videoRef.current) {
       videoRef.current.load();
       const playPromise = videoRef.current.play();
@@ -89,6 +91,14 @@ export const HeroPlayer: React.FC<HeroPlayerProps> = ({
     }
   };
 
+  const handleMetadata = () => {
+    if (videoRef.current) {
+      const { videoWidth, videoHeight } = videoRef.current;
+      setIsPortrait(videoHeight > videoWidth);
+    }
+    handleTimeUpdate();
+  };
+
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!videoRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
@@ -124,14 +134,19 @@ export const HeroPlayer: React.FC<HeroPlayerProps> = ({
         {/* Main Video Screen Container */}
         <div
           ref={containerRef}
-          className="group relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-neutral-800/80 shadow-inner flex items-center justify-center"
+          className={`group relative w-full rounded-2xl overflow-hidden bg-black border border-neutral-800/80 shadow-inner flex items-center justify-center ${
+            isPortrait
+              ? "aspect-[9/16] max-w-sm mx-auto"
+              : "aspect-video"
+          }`}
         >
           <video
+            key={currentVideo.id}
             ref={videoRef}
             src={ensureHttps(currentVideo.videoUrl)}
             className="w-full h-full object-contain cursor-pointer"
             onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleTimeUpdate}
+            onLoadedMetadata={handleMetadata}
             onWaiting={() => setIsBuffering(true)}
             onPlaying={() => setIsBuffering(false)}
             onEnded={onNextTrack}

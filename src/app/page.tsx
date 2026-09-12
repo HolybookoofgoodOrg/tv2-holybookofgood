@@ -82,7 +82,8 @@ export default function Home() {
       {/* Main Container */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
         {/* Central Hero Video Player */}
-        <HeroPlayer
+        <HeroPlayer 
+          key={currentVideo.id}
           currentVideo={currentVideo}
           onNextTrack={handleNextTrack}
           currentIndex={currentVideoIndex}
