@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 8 8 10;
+    --foreground: 245 245 245;
+  }
+  
+  body {
+    background-color: #08080a;
+    color: #f3f4f6;
+    overflow-x: hidden;
+  }
+}
+
+/* Neon Glow Effects from Original tv.holybookofgood.org */
+.neon-glow {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.7), 0 0 22px rgba(236, 72, 153, 0.5), 0 0 35px rgba(245, 158, 11, 0.3);
+}
+
+.neon-glow-purple {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 0 20px rgba(147, 51, 234, 0.4);
+}
+
+.neon-glow-pink {
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.8), 0 0 20px rgba(219, 39, 119, 0.4);
+}
+
+.neon-glow-amber {
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.8), 0 0 20px rgba(217, 119, 6, 0.4);
+}
+
+.box-neon-purple {
+  box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.25), 0 0 10px -2px rgba(236, 72, 153, 0.15);
+}
+
+.box-neon-active {
+  box-shadow: 0 0 20px -2px rgba(236, 72, 153, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+/* Original tv.holybookofgood.org 15+ Mature Content Rating Badge */
+.dvd-rating-15 {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 900;
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+  user-select: none;
+}
+
+/* Custom Sleek Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 15, 20, 0.5);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #374151;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #4b5563;
+}
+
+/* Live TV Pulse */
+@keyframes tvPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.95); }
+}
+
+.tv-badge-pulse {
+  animation: tvPulse 2s infinite ease-in-out;
+}
+
+/* Ambient Player Glow Animation */
+@keyframes ambientBreathe {
+  0%, 100% {
+    filter: blur(60px);
+    opacity: 0.35;
+    transform: scale(0.98);
+  }
+  50% {
+    filter: blur(75px);
+    opacity: 0.55;
+    transform: scale(1.03);
+  }
+}
+
+.ambient-glow {
+  animation: ambientBreathe 6s infinite ease-in-out;
+}
